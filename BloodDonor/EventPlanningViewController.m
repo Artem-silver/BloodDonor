@@ -227,7 +227,7 @@
             [event setObject:[Common getInstance].eventStationAddress forKey:@"adress"];
         
         [event setObject:selectedDate forKey:@"date"];
-        [event setObject:[NSNumber numberWithBool:!knowReminderButton.selected] forKey:@"analysisResult"];
+        [event setObject:[NSNumber numberWithBool:knowReminderButton.selected] forKey:@"analysisResult"];
         [event setObject:[NSNumber numberWithBool:isFinished] forKey:@"finished"];
         [event setObject:[NSNumber numberWithInt:eventTimeReminderIndex] forKey:@"notice"];
         [event save];
@@ -278,6 +278,7 @@
             [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         }
     }
+    //РАБОТАЕТ ЧЕРЕЗ НАСТРОЙКИ!!!
     else if ([Common getInstance].isNeedReminders)
     {
         UILocalNotification *localNotificationReminder = [[[UILocalNotification alloc] init] autorelease];
@@ -898,8 +899,38 @@
     [bloodDonateLocationButton setTitle:[Common getInstance].eventStationAddress forState:UIControlStateHighlighted];
     
     eventTimeReminderIndex = [[event valueForKey:@"notice"] intValue];
+    switch (eventTimeReminderIndex)
+    {
+        case 0:
+            [timeReminderButton setTitle:@"Нет" forState:UIControlStateNormal];
+            [timeReminderButton setTitle:@"Нет" forState:UIControlStateHighlighted];
+            break;
+            
+        case 1:
+            [timeReminderButton setTitle:@"За 3 мин" forState:UIControlStateNormal];
+            [timeReminderButton setTitle:@"За 3 мин" forState:UIControlStateHighlighted];
+            break;
+            
+        case 2:
+            [timeReminderButton setTitle:@"За 5 мин" forState:UIControlStateNormal];
+            [timeReminderButton setTitle:@"За 5 мин" forState:UIControlStateHighlighted];
+            break;
+            
+        case 3:
+            [timeReminderButton setTitle:@"За 10 мин" forState:UIControlStateNormal];
+            [timeReminderButton setTitle:@"За 10 мин" forState:UIControlStateHighlighted];
+            break;
+            
+        case 4:
+            [timeReminderButton setTitle:@"За 15 мин" forState:UIControlStateNormal];
+            [timeReminderButton setTitle:@"За 15 мин" forState:UIControlStateHighlighted];
+            break;
+            
+        default:
+            break;
+    }
     
-    knowReminderButton.selected = ![[event valueForKey:@"analysisResult"] boolValue];
+    knowReminderButton.selected = [[event valueForKey:@"analysisResult"] boolValue];
     
     [indicatorView removeFromSuperview];
 }

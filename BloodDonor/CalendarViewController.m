@@ -142,9 +142,11 @@
         else
         {
             NSCalendar *currentCalendar = [NSCalendar currentCalendar];
-            unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+            unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit;
             NSDateComponents *dateComponents = [currentCalendar components:unitFlags fromDate:selectedDate];
             dateComponents.day = [button.titleLabel.text intValue];
+            dateComponents.hour = 8;
+            dateComponents.minute = 0;
             
             EventPlanningViewController *eventPlanningViewController = [[[EventPlanningViewController alloc] initWithNibName:@"EventPlanningViewController" bundle:nil event:@"" date:[currentCalendar dateFromComponents:dateComponents]] autorelease];
             [self.navigationController pushViewController:eventPlanningViewController animated:YES];
